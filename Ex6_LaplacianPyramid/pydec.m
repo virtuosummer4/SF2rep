@@ -1,10 +1,12 @@
-function Z0 = pydec(C)
+function Z0 = pydec(C,h)
 
 % PY4DEC decode the original mage from an n-layer Laplacian pyramid.
 % C - cell array of subimage matric {Y0...Yk-1 Xk} where k is the amount of
 % stages in the Laplacian pyramid.
 
-h = [.25 .5 .25];%filter
+if ~exist('h','var')
+    h = [.25 .5 .25];%filter
+end
 
 n=length(C);
 

@@ -1,10 +1,12 @@
-function [C] = pyenc(X0,n)
-
+function [C] = pyenc(X0,n,h)
 % PYENC Calculate n-layer Laplacian pyramid representation of an image.
 %
 % X - input image
 % n - how many levels of Laplacian Pyramid are computed
-h = [.25 .5 .25];%filter
+
+if ~exist('h','var')
+    h = [.25 .5 .25];%filter
+end
 
 C=cell(n+1,1);
 %X = cell(n+1,1);

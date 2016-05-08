@@ -1,3 +1,5 @@
+% Script to plor rms errors for different step quantisations
+
 N = 1000;
 
 step= 100/N;

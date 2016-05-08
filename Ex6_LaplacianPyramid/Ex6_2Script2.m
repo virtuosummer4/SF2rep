@@ -1,3 +1,5 @@
+% Script to display the curve, optimised over in optstep.m
+
 N = 1000;
 
 step= 100/N;

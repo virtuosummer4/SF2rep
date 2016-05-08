@@ -1,5 +1,6 @@
-function [opt rms3 compr] = optstep(X, stg, err, min, max)
-% OPTSTEP implement golden section search to find best step size
+function [opt rms3 compr] = optmse(X, stg, err, min, max)
+% OPTMSE implement golden section search to find best step size
+
 if ~exist('min','var') min = 1; end
 if ~exist('max','var') max = 100; end
 if ~exist('err','var') err = 0.0001; end
@@ -17,14 +18,12 @@ D = max;
 B = D-(D-A)/p;
 C = A+(D-A)/p;
 
-% Calculate initial values
-%rms = quantest(X, stg, A, false);
-%fa = rms(3);
+R = sqrt(LapIR(stg));
+R = R./R(1);% adjust to get ratios
 
+fb = abs(quantest2(X, stg, B, R, false)-comp);
 
-fb = abs(quantest(X, stg, B, false)-comp);
-
-fc = abs(quantest(X, stg, C, false)-comp);
+fc = abs(quantest2(X, stg, C, R, false)-comp);
 
 %rms = quantest(X, stg, D, false);
 %fd = rms(3);
@@ -36,12 +35,12 @@ while diff>err && it<Maxit
         D=C;
         C=B; fc=fb;
         B=D-(D-A)/p;
-        fb = abs(quantest(X, stg, B, false)-comp);
+        fb = abs(quantest2(X, stg, B, R, false)-comp);
     else
         A=B;
         B=C; fb=fc;
         C = A+(D-A)/p;
-        fc = abs(quantest(X, stg, C, false)-comp);
+        fc = abs(quantest2(X, stg, C, R, false)-comp);
     end
     diff = D-A;
     it = it+1;
@@ -51,6 +50,8 @@ if it==Maxit
 end
 opt = (B+C)/2;
 
-rms3 = quantest(X, stg, opt, false)-comp;
-[ ent, compr ] = lapEnt(X, stg, opt );
+rms3 = quantest2(X, stg, opt, R, false)-comp;
+[ ent, compr ] = lapEnt(X, stg, opt, R );
+
 end
+
