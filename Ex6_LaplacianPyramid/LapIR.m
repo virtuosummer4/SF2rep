@@ -1,4 +1,4 @@
-function E = LapIR(layr)
+function E = LapIR(layr,h)
 % LAPIR invstigates effect of impulse response on particular layer of
 % Laplacean Pyramid encoding scheme.
 %
@@ -7,7 +7,7 @@ function E = LapIR(layr)
 if ~exist('drw', 'var') drw = false; end
 
 X = zeros(256);
-C = pyenc(X,layr);
+C = pyenc(X,layr,h);
 E = zeros(layr+1,1);
 Ct=C;
 for i = 1:layr
@@ -15,7 +15,7 @@ for i = 1:layr
     l=length(Y);
     Y(l/2,l/2) = 100;
     C(i) = {Y};
-    Z=pydec(C);
+    Z=pydec(C,h);
     E(i) = sum(Z(:).^2);
     C=Ct;
 end
@@ -27,7 +27,7 @@ else
     Y=100;
 end
 C(layr+1) = {Y};
-    Z=pydec(C);
+    Z=pydec(C,h);
     E(layr+1) = sum(Z(:).^2);
     C=Ct;
 

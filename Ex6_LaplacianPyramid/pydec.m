@@ -10,7 +10,7 @@ end
 
 n=length(C);
 
-Z = cell2mat(C(n))+128; % add 128 to fixthe DC offset
+Z = cell2mat(C(n)); % 
 for i = 1:n-1
     % X(k) = Y(k)+<interpolate>X(k+1) where k=n-i-1
     Z = cell2mat(C(n-i))+rowint(rowint(Z,2*h)', 2*h)';

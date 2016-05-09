@@ -5,14 +5,14 @@ if ~exist('min','var') min = 1; end
 if ~exist('max','var') max = 100; end
 if ~exist('err','var') err = 0.0001; end
 if ~exist('comp', 'var') 
-Xq = quantise(X-128, 17)+128;
+Xq = quantise(X, 17);
 comp = std(X(:)-Xq(:)); % rms error X -> Xq
 end
 
 Maxit = 1000;
 p=1.618034;%golden ratio
 
-
+h = [1 4 6 4 1]/16;
 
 % Allocate points
 A = min;
@@ -20,7 +20,7 @@ D = max;
 B = D-(D-A)/p;
 C = A+(D-A)/p;
 
-R = sqrt(LapIR(stg));
+R = sqrt(LapIR(stg,h));
 R = R./R(1);% adjust to get ratios
 
 fb = abs(quantest2(X, stg, B, R, false)-comp);
@@ -53,7 +53,7 @@ end
 opt = (B+C)/2;
 
 rms3 = quantest2(X, stg, opt, R, false)-comp;
-[ ent, compr ] = lapEnt(X, stg, opt, R );
+[ ent, compr ] = lapEnt(X, stg, opt, h, R );
 
 end
 

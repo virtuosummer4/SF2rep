@@ -4,7 +4,7 @@ if ~exist('min','var') min = 1; end
 if ~exist('max','var') max = 100; end
 if ~exist('err','var') err = 0.0001; end
 if ~exist('comp', 'var') 
-Xq = quantise(X-128, 17)+128;
+Xq = quantise(X, 17);
 comp = std(X(:)-Xq(:)); % rms error X -> Xq
 end
 

@@ -1,10 +1,20 @@
-function [rms, Xq, Z] = quantest(X, stg, step, drw)
+function [rms, Xq, Z] = quantest(X, stg, step, h, drw)
 % QUANTEST: Tests quantisation quality
 
 if ~exist('drw', 'var') drw = false; end
 
+if ~exist('h','var')
+    h = [.25 .5 .25];%filter
+end
+
+%%%%5
+%h = [1 4 6 4 1]/16;
+
+
+%%%%%
+
 % encode
-C = pyenc(X,stg);
+C = pyenc(X,stg,h);
 
 % quantise
 for i = 1:stg+1
@@ -15,7 +25,7 @@ Xq = quantise(X, step);
 
 % reconstruct
 
-Z = pydec(C);
+Z = pydec(C,h);
 %Zr = quantise(Z,step);
 
 if drw
