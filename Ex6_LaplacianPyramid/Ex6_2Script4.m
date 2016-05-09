@@ -7,16 +7,18 @@ stcomp = zeros(loops, 1);
 mseID = zeros(loops,1);
 stID = zeros(loops,1);
 
-for step = 1:loops;
-
-Xq = quantise(X,step);
-comp = std(X(:)-Xq(:)); % rms error X -> Xq
 oms = zeros(layers,1);
 ost = zeros(layers,1);
 rms = zeros(layers,1);
 rst = zeros(layers,1);
 cms = zeros(layers,1);
 cst = zeros(layers,1);
+
+for step = 1:loops;
+
+Xq = quantise(X,step);
+comp = std(X(:)-Xq(:)); % rms error X -> Xq
+
 
 for  i = 1:layers
     [oms(i) rms(i) cms(i)] = optmse(X, i, comp);
@@ -36,7 +38,7 @@ stID(step) = min(I);
 
 end
 figure;
-subplot(2,2,1); plot(msecomp); title('MSE compression'); ylabel('compression ratio');
-subplot(2,2,3); plot(stcomp); title('Constant step compression'); xlabel('Quantisation steps');ylabel('compression ratio');
-subplot(2,2,2); plot(mseID); title('mse Optimum'); ylabel('Laplacian stages');
-subplot(2,2,4); plot(stID); title('stID'); xlabel('Quantisation steps'); ylabel('Laplacian stages');
+subplot(2,1,1); plot(msecomp); hold on; plot(stcomp);hold off; title('MSE compression'); ylabel('compression ratio');
+%title('Constant step compression'); xlabel('Quantisation steps');ylabel('compression ratio');
+subplot(2,1,2); plot(mseID); hold on; plot(stID); hold off; title('mse Optimum'); ylabel('Laplacian stages');
+%subplot(2,2,4); title('stID'); xlabel('Quantisation steps'); ylabel('Laplacian stages');

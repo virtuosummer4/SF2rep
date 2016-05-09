@@ -1,4 +1,4 @@
-function E = LapIR(layr,h)
+function E = LapIR(layr,h, drw)
 % LAPIR invstigates effect of impulse response on particular layer of
 % Laplacean Pyramid encoding scheme.
 %

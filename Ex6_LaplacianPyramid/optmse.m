@@ -23,9 +23,9 @@ C = A+(D-A)/p;
 R = sqrt(LapIR(stg,h));
 R = R./R(1);% adjust to get ratios
 
-fb = abs(quantest2(X, stg, B, R, false)-comp);
+fb = abs(quantest2(X, stg, B, h, R, false)-comp);
 
-fc = abs(quantest2(X, stg, C, R, false)-comp);
+fc = abs(quantest2(X, stg, C, h, R, false)-comp);
 
 %rms = quantest(X, stg, D, false);
 %fd = rms(3);
@@ -37,12 +37,12 @@ while diff>err && it<Maxit
         D=C;
         C=B; fc=fb;
         B=D-(D-A)/p;
-        fb = abs(quantest2(X, stg, B, R, false)-comp);
+        fb = abs(quantest2(X, stg, B, h, R, false)-comp);
     else
         A=B;
         B=C; fb=fc;
         C = A+(D-A)/p;
-        fc = abs(quantest2(X, stg, C, R, false)-comp);
+        fc = abs(quantest2(X, stg, C, h, R, false)-comp);
     end
     diff = D-A;
     it = it+1;
@@ -52,7 +52,7 @@ if it==Maxit
 end
 opt = (B+C)/2;
 
-rms3 = quantest2(X, stg, opt, R, false)-comp;
+rms3 = quantest2(X, stg, opt, h, R, false)-comp;
 [ ent, compr ] = lapEnt(X, stg, opt, h, R );
 
 end
