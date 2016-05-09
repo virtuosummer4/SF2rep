@@ -1,6 +1,8 @@
 function [ ent, compr ] = lapEnt(X, st, step, R )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
+% gets entropy and compression of 
+
 
 if ~exist('R', 'var') R = ones(st+1,1); end
 

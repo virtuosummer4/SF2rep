@@ -1,15 +1,16 @@
-function [opt rms3 compr] = optstep(X, stg, err, min, max)
+function [opt rms3 compr] = optstep(X, stg, comp, err, min, max)
 % OPTSTEP implement golden section search to find best step size
 if ~exist('min','var') min = 1; end
 if ~exist('max','var') max = 100; end
 if ~exist('err','var') err = 0.0001; end
+if ~exist('comp', 'var') 
+Xq = quantise(X-128, 17)+128;
+comp = std(X(:)-Xq(:)); % rms error X -> Xq
+end
 
 Maxit = 1000;
 p=1.618034;%golden ratio
 
-Xq = quantise(X-128, 17)+128;
-
-comp = std(X(:)-Xq(:)); % rms error X -> Xq
 
 % Allocate points
 A = min;
