@@ -1,11 +1,16 @@
-function [opt rms3 compr] = optstep(X, stg, comp, err, min, max)
+function [opt rms3 compr] = optstep(X, stg, compstep, h, err, min, max)
 % OPTSTEP implement golden section search to find best step size
 if ~exist('min','var') min = 1; end
 if ~exist('max','var') max = 100; end
 if ~exist('err','var') err = 0.0001; end
-if ~exist('comp', 'var') 
-Xq = quantise(X, 17);
+if ~exist('compstep', 'var') compstep=17; end
+Xq = quantise(X, compstep);
 comp = std(X(:)-Xq(:)); % rms error X -> Xq
+[a, b]=size(Xq);
+bitsx=bpp(Xq)*a*b;
+
+if ~exist('h','var')
+    h = [.25 .5 .25];%filter
 end
 
 Maxit = 1000;
@@ -23,11 +28,11 @@ C = A+(D-A)/p;
 %fa = rms(3);
 
 
-fb = abs(quantest(X, stg, B, false)-comp);
+fb = abs(quantest(X, stg, B, h)-comp);
 
-fc = abs(quantest(X, stg, C, false)-comp);
+fc = abs(quantest(X, stg, C, h)-comp);
 
-%rms = quantest(X, stg, D, false);
+%rms = quantest(X, stg, D, h, false);
 %fd = rms(3);
 
 diff = D-A;
@@ -37,12 +42,12 @@ while diff>err && it<Maxit
         D=C;
         C=B; fc=fb;
         B=D-(D-A)/p;
-        fb = abs(quantest(X, stg, B, false)-comp);
+        fb = abs(quantest(X, stg, B,h)-comp);
     else
         A=B;
         B=C; fb=fc;
         C = A+(D-A)/p;
-        fc = abs(quantest(X, stg, C, false)-comp);
+        fc = abs(quantest(X, stg, C,h)-comp);
     end
     diff = D-A;
     it = it+1;
@@ -52,6 +57,7 @@ if it==Maxit
 end
 opt = (B+C)/2;
 
-rms3 = quantest(X, stg, opt, false)-comp;
-[ ent, compr ] = lapEnt(X, stg, opt );
+rms3 = quantest(X, stg, opt, h)-comp;
+[ent, buff1, bits] = lapEnt(X, stg, opt, h);
+compr = bitsx/sum(bits);
 end

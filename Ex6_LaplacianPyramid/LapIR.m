@@ -4,6 +4,11 @@ function E = LapIR(layr,h, drw)
 %
 % layr - which layer the impulse if put
 % test image
+
+if ~exist('h','var')
+    h = [.25 .5 .25];%filter
+end
+
 if ~exist('drw', 'var') drw = false; end
 
 X = zeros(256);

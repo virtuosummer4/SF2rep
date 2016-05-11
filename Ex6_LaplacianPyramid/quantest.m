@@ -1,15 +1,24 @@
-function [rms, Xq, Z] = quantest(X, stg, step, h, drw)
+function [rms, Xq, Z] = quantest(X, stg, step, h, R, drw)
 % QUANTEST: Tests quantisation quality
-
-if ~exist('drw', 'var') drw = false; end
+% h - filter. defaults to 3-tap filter.
+% R - coeficients for layer step scaling (division). Defaults to 1.
+% drw - bool, whether to draw out the result. defaults to false.
 
 if ~exist('h','var')
     h = [.25 .5 .25];%filter
 end
 
+if ~exist('R','var')
+    R = ones(1, stg+1);
+    %R = sqrt(LapIR(stg,h));
+    %R = R./R(1);% adjust to get ratios
+end
+
+if ~exist('drw', 'var') drw = false; end
+
+
 %%%%5
 %h = [1 4 6 4 1]/16;
-
 
 %%%%%
 
@@ -18,7 +27,7 @@ C = pyenc(X,stg,h);
 
 % quantise
 for i = 1:stg+1
-    C(i) = {quantise(cell2mat(C(i)),step)};
+    C(i) = {quantise(cell2mat(C(i)),step/R(i))};
 end
 
 Xq = quantise(X, step);

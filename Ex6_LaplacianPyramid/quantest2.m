@@ -1,5 +1,8 @@
 function [rms, Xq, Z] = quantest2(X, stg, step, h, R, drw)
 % QUANTEST: Tests quantisation quality
+% h - filter. defaults to 3-tap filter.
+% R - coeficients for layer step scaling (division). Defaults to MSE scheme
+% drw - bool, whether to draw out the result. defaults to false.
 
 if ~exist('drw', 'var') drw = false; end
 if ~exist('R','var')
@@ -15,8 +18,6 @@ end
 %h = [1 4 6 4 1]/16;
 
 %%%%%
-
-
 
 % encode
 C = pyenc(X,stg,h);
