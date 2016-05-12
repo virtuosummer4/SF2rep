@@ -1,4 +1,5 @@
 function [rms, Xq, Z] = quantest(X, stg, step, h, R, drw)
+%[rms, Xq, Z] = quantest(X, stg, step, h, R, drw)
 % QUANTEST: Tests quantisation quality
 % h - filter. defaults to 3-tap filter.
 % R - coeficients for layer step scaling (division). Defaults to 1.

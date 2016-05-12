@@ -36,10 +36,10 @@ comp = std(X(:)-Xq(:)); % rms error X -> Xq
 
 
 for  i = 1:layers
-    [oms1(i) rms(i) cms1(i)] = optmse(X, i, comp,h1);
-    [ost1(i) rst(i) cst1(i)] = optstep(X, i, comp,h1);
-    [oms2(i) rms(i) cms2(i)] = optmse(X, i, comp,h2);
-    [ost2(i) rst(i) cst2(i)] = optstep(X, i, comp,h2);
+    [oms1(i) rms(i) cms1(i)] = optmse(X, i, comp, h1, 0.001, 0.1, 50);
+    [ost1(i) rst(i) cst1(i)] = optstep(X, i, comp,h1, 0.001, 0.1, 50);
+    [oms2(i) rms(i) cms2(i)] = optmse(X, i, comp,h2, 0.001, 0.1, 50);
+    [ost2(i) rst(i) cst2(i)] = optstep(X, i, comp,h2, 0.001, 0.1, 50);
     
 end
 [msecomp1(step),I] = max(cms1);
