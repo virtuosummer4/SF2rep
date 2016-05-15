@@ -6,7 +6,8 @@ function C = dct_ii(N)
 %  such that Y = C * X transforms N-vector X into Y.
 %  Uses an orthogonal Type-II DCT 
 
-C = ones(N,N) / sqrt(N);
+C = [ones(1, N)/sqrt(N); ones(N-1,N)];
+
 theta = ([1:N] - 0.5) * (pi/N);
 g = sqrt(2/N);
 for i=2:N,

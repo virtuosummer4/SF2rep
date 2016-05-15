@@ -1,4 +1,4 @@
-function [C] = pyenc(X0,n,h)
+function C = pyenc(X0,n,h)
 % PYENC Calculate n-layer Laplacian pyramid representation of an image.
 %
 % X - input image

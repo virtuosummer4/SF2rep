@@ -1,0 +1,24 @@
+E = energy(X);
+A = hbeside(C);
+A = vbeside(C);
+opt = golden(fun, comp, err, min, max);
+bits = getbits(X);
+
+[ ent, compr, bits ] = lapEnt(X, st, step, h, R )
+E = LapIR(layr, h, drw);
+[opt rms3 compr] = optstep(X, stg, compstep, h, err, min, max);
+[opt rms3 compr] = optmse(X, stg, compstep, h, err, min, max);
+[opt rms3] = optstep0(X, stg, min, max, err);
+X = py4dec(X4, Y0, Y1, Y2, Y3);
+X = py4dec(X4, Y0, Y1, Y2, Y3);
+Z0 = pydec(C,h);
+C = pyenc(X0,n,h);
+[rms, Xq, Z] = quantest(X, stg, step, h, R, drw);
+[rms, Xq, Z] = quantest2(X, stg, step, h, R, drw);
+
+rms = quandct( X, C, step );
+Y = pot(X, P, N);
+Y = lbtfw(X, N, s);
+Zp = lbtbw(Y, N, s);
+Y = d2ct(X,C);
+bits = dctbpp(Yr, N);
