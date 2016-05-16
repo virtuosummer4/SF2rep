@@ -1,8 +1,9 @@
 function Y = lbtfw(X, N, s)
+% Y = lbtfw(X, N, s)
 % performs LBT
 %
 
-[Pf, Pr] = pot_ii(N, s);
+[Pf, ~] = pot_ii(N, s);
 
 Xp = pot(X, Pf, N);
 

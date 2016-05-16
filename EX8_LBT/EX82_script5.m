@@ -9,7 +9,7 @@ Xq = quantise(X, stp);
 ref = std(X(:)-Xq(:));
 bitref = getbits(Xq);
 
-s = 1.079;
+s = 1.3354;
 opt =zeros(length(N),1); 
 compr = zeros(length(N),1);
 Z = cell(length(N), 1);

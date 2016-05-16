@@ -8,7 +8,7 @@ Xq = quantise(X, stp);
 ref = std(X(:)-Xq(:));
 bitref = getbits(Xq);
 
-s = [1.05:0.0001:1.15];
+s = [1.8:0.001:1.9];
 opt =zeros(length(s),1); 
 compr = zeros(length(s),1);
 
@@ -19,7 +19,7 @@ for i = 1:length(s)
     
     fun = @(step) qntest(fun1, fun2, X, step);
     
-    opt(i) = golden(fun, ref, 0.00001, 20, 30);
+    opt(i) = golden(fun, ref);
     Y = lbtfw(X, N, s(i));
     Y = quantise(Y, opt(i));
     compr(i) = bitref/dctbpp(regroup(Y,N),N);

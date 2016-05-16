@@ -10,6 +10,6 @@ t = (1+N/2):(I-N/2);
 
 Y = X;
 Y(t,:) = colxfm(Y(t,:), P);
-Y(:,t) = colxfm(Y(:,t)', P')';
+Y(:,t) = colxfm(Y(:,t)', P)';
 
 end

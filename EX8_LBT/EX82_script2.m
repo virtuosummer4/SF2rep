@@ -14,9 +14,14 @@ fun2 = @(s) ( @(Yq) lbtbw(Yq, N, s));
 
 fun3 = @(s) ( @(step) qntest(fun1(s), fun2(s), X, step));
 
-fun4 = @(s) golden(fun3(s), ref, 0.00001, 20, 30);
+% matches rms to ref for a given s. outputs the optimum step.
+fun4 = @(s) golden1(fun3(s), ref, 0.00001, 23, 27);
 
-opts = golden(fun4, 100, 0.00001, 1.05, 1.15);
+% gets the bits needed for encoding
+fun5 = @(s) lbtbitsfun(X, N, s, fun4);
+
+% minimises number of bits needed
+opts = golden(fun5, 0, 0.0001, 1, 2);
 opt = fun4(opts);
 
 Y = lbtfw(X, N, opts);
