@@ -25,8 +25,9 @@ for i = 1:length(s)
     Y = lbtfw(X, N, s(i));
     Y = quantise(Y, opt(i));
     compr(i) = bitref/dctbpp(regroup(Y,N),N);
-    Z(i) = {lbtbw(Y, N, s(i))};
+    temp = lbtbw(Y, N, s(i));
+    Z(i) = {temp(127:192, 193:256)};
 end
 
-A = beside(X, hbeside(Z));
+A = beside(X(127:192,193:256), hbeside(Z));
 figure; draw(A);

@@ -1,4 +1,4 @@
-function Xr = idwtree(Y, n)
+function Xr = nlevidwt(Y, n)
 % Y = dwttree(X, n)
 % decodes a discrete wavelet transform tree with n levels
 % n should be an integer between 1 and log_2(length(X))

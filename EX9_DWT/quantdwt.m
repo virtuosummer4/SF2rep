@@ -14,6 +14,7 @@ l = length(Y)/2;
 Yq = Y;
 
 for i = 1:n
+    l = l/2;
     t0 = 1:l; t1 = l+1:2*l;
     Yq(t0,t1) = quantise(Y(t0,t1),dwtstep(1,i));
     Yq(t1,t0) = quantise(Y(t1,t0),dwtstep(2,i));
@@ -22,9 +23,7 @@ for i = 1:n
     dwtent(2,i) = bpp(Yq(t1,t0));
     dwtent(3,i) = bpp(Yq(t1,t1));
     dwtbits(:,i)= dwtent(:,i).*l^2;
-    l = l/2;
 end
-t0 = 1:l;
 Yq(t0,t0) = quantise(Y(t0,t0), dwtstep(1, n+1));
 dwtent(1,n+1) = bpp(Yq(t0,t0));
 dwtbits(1,n+1)= dwtent(1,n+1)*l^2;

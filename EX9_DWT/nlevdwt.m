@@ -1,4 +1,4 @@
-function Y = dwtree(X, n)
+function Y = nlevdwt(X, n)
 % Y = dwttree(X, n)
 % creates discrete wavelet transform tree with n levels
 % n should be an integer between 1 and log_2(length(X))
