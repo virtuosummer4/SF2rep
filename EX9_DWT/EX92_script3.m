@@ -8,14 +8,16 @@ stp = 17;
 Xq = quantise(X, stp);
 ref = std(X(:)-Xq(:));
 bitref = getbits(Xq);
-layr = 3;
-k = 3;
+layr = 7;
+k = 1;
 
 % index 1 - st, index 2 - mse.
-step = zeros(3+layr,2);
-comp = zeros(3+layr,2);
+step = zeros(k-1+layr,2);
+comp = zeros(k-1+layr,2);
 Z = cell(layr,2);
 
+t0 = 1:128;
+t1 = 129:256;
 % run for each n
 for n = k:k-1+layr
     % get mse coefficients
@@ -30,13 +32,15 @@ for n = k:k-1+layr
     
     Y = nlevdwt(X,n);
     
-    [Yq, ~, bits] = quantdwt(Y, n, qst*stp);
+    [Yq, ~, bits] = quantdwt(Y, n, qst.*stp);
     comp(n, 1) = bitref/sum(bits(:));
-    Z(n-k+1,1) = {nlevidwt(Yq,n)};
+    temp = nlevidwt(Yq,n);
+    Z(n-k+1,1) = {enlarge(temp(t1,t0),2)};
     
-    [Yq, ~, bits] = quantdwt(Y, n, qmse*stp);
+    [Yq, ~, bits] = quantdwt(Y, n, qmse.*stp);
     comp(n, 2) = bitref/sum(bits(:));
-    Z(n-k+1,2) = {nlevidwt(Yq,n)};
+    temp = nlevidwt(Yq,n);
+    Z(n-k+1,2) = {enlarge(temp(t1,t0),2)};
 end
 
 Ab = beside(hbeside(Z(:,1))', hbeside(Z(:,2))')';

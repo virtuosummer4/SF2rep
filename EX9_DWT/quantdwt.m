@@ -4,13 +4,13 @@ function [Yq, dwtent, dwtbits] = quantdwt(Y, n, dwtstep)
 %  dwtstep matrix. size = [3, n+1]
 %  dwtent matrix
 
-if ~exist('dwtstep', 'var') dwtstep = ones(3, n+1); end
+%if ~exist('dwtstep', 'var') dwtstep = ones(3, n+1); end
 
 dwtent = zeros(3, n+1);
 dwtbits = zeros(3, n+1);
 
 % get length of first level submatrices
-l = length(Y)/2;
+l = length(Y);
 Yq = Y;
 
 for i = 1:n

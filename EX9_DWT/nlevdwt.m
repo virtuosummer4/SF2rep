@@ -19,7 +19,6 @@ for i = 1:n-1
     l = l/2;
     t = 1:l;
     Y(t,t) = dwt(Y(t,t));
-        
 end
 
 end
